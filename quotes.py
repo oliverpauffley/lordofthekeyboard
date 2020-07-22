@@ -59,7 +59,7 @@ def _url(path):
     return "https://the-one-api.herokuapp.com/v1" + path
 
 
-def character_lookup(id: string, characters: dict) -> string:
+def character_lookup(id: str, characters: dict) -> str:
     """ CharacterLookup returns the character name from the dictionary of all characters, or "unknown" if the name can't be found 
 
     - inputs
