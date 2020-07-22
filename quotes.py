@@ -18,11 +18,6 @@ def get_quotes():
     return resp.json()["docs"]
 
 
-# GetBooks returns all of the books from the API.
-def get_books():
-    return requests.get(_url("/book"))
-
-
 # GetCharacters returns all of the characters from the API.
 def get_characters():
     headers = {"Authorization": "Bearer {}".format(API_KEY)}
@@ -35,6 +30,11 @@ def get_characters():
     return resp.json()["docs"]
 
 
+# _url is a helper to form the complete url for a given request.
+def _url(path):
+    return "https://the-one-api.herokuapp.com/v1" + path
+
+
 # CharacterLookup returns the character name from the dictionary of all characters, or "unknown" if the name can't be found
 def character_lookup(id: string, characters: dict) -> string:
     for character in characters:
@@ -44,15 +44,10 @@ def character_lookup(id: string, characters: dict) -> string:
     return "unknown"
 
 
-# _url is a helper to form the complete url for a given request.
-def _url(path):
-    return "https://the-one-api.herokuapp.com/v1" + path
-
-
 # new quote returns a randomly selected quote from the dictionary with the character name.
 def new_quote(quote_list: dict, character_list: dict) -> tuple:
 
-    quoteIndex = random.randint(0, len(quote_list))
+    quoteIndex = random.randint(0, len(quote_list) - 1)
 
     quote = quote_list[quoteIndex]["dialog"]
 
@@ -61,6 +56,3 @@ def new_quote(quote_list: dict, character_list: dict) -> tuple:
     name = character_lookup(characterID, character_list)
 
     return (quote, name)
-
-
-# maybe a quote that contains a character string?

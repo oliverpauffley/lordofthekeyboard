@@ -22,7 +22,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 Session(app)
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def game():
 
     # Once per session grab the full quotes and character lists from the api

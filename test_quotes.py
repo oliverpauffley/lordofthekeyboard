@@ -46,3 +46,23 @@ def test_character_lookup():
             == test.expected
         )
 
+
+def test_new_quote():
+    @dataclass
+    class TestCase:
+        name: str
+        quote_list: List[dict]
+        character_dict: List[dict]
+        expected: tuple
+
+    testcases = [
+        TestCase(
+            name="quote is generated",
+            quote_list=[{"dialog": "quote dialog", "character": "1"},],
+            character_dict=[{"_id": "1", "name": "correct"},],
+            expected=("quote dialog", "correct"),
+        ),
+    ]
+
+    for test in testcases:
+        assert quotes.new_quote(test.quote_list, test.character_dict) == test.expected
