@@ -5,9 +5,21 @@ load_dotenv()
 
 API_KEY = os.environ.get("API_KEY")
 
-# GetQuote gets the quote with the given id from the lord of the rings API.
-# TODO clean up the quotes to remove spaces etc.
+
 def get_quotes():
+    """ Grabs all quotes from the lord of the rings api 
+    - returns
+    a list of dictionares like::
+
+    [ 
+        { 
+        "dialog": "a lotr quote", 
+        "_id" : "some uuid",
+        ... 
+        } 
+    ]
+
+    """
     headers = {"Authorization": "Bearer {}".format(API_KEY)}
     try:
         resp = requests.get(_url("/quote"), headers=headers)
@@ -18,8 +30,20 @@ def get_quotes():
     return resp.json()["docs"]
 
 
-# GetCharacters returns all of the characters from the API.
 def get_characters():
+    """ Grabs all of the lord of the rings characters from the api
+    - returns
+    a list of dictionaries like::
+
+    [ 
+        { 
+            "_id": "some uuid",
+            "name": "actual character name", 
+            ...
+        } 
+    ]
+
+    """
     headers = {"Authorization": "Bearer {}".format(API_KEY)}
     try:
         resp = requests.get(_url("/character"), headers=headers)
@@ -30,13 +54,24 @@ def get_characters():
     return resp.json()["docs"]
 
 
-# _url is a helper to form the complete url for a given request.
 def _url(path):
+    """ _url is a helper to form the complete url for a given request """
     return "https://the-one-api.herokuapp.com/v1" + path
 
 
-# CharacterLookup returns the character name from the dictionary of all characters, or "unknown" if the name can't be found
 def character_lookup(id: string, characters: dict) -> string:
+    """ CharacterLookup returns the character name from the dictionary of all characters, or "unknown" if the name can't be found 
+
+    - inputs
+    id - a uuid of a character from the api
+    character - a dictionary from the get_characters() function
+
+    - returns
+    a string with a characters name.
+
+    "Gandalf"
+
+    """
     for character in characters:
         if character["_id"] == id:
             return character["name"]
@@ -44,9 +79,18 @@ def character_lookup(id: string, characters: dict) -> string:
     return "unknown"
 
 
-# new quote returns a randomly selected quote from the dictionary with the character name.
 def new_quote(quote_list: dict, character_list: dict) -> tuple:
+    """ New quote returns a new randomly selected quote from the dictionary
+    - inputs
+    a list of quotes from get_quotes()
+    a list from get_characters()
 
+    - returns
+    a tuple with a quote and a character name like::
+
+    ( "Fly you fools!", "Gandalf)
+
+    """
     quoteIndex = random.randint(0, len(quote_list) - 1)
 
     quote = quote_list[quoteIndex]["dialog"]
