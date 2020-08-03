@@ -54,7 +54,7 @@ def get_characters():
     return resp.json()["docs"]
 
 
-def _url(path):
+def _url(path: str) -> str:
     """ _url is a helper to form the complete url for a given request """
     return "https://the-one-api.herokuapp.com/v1" + path
 

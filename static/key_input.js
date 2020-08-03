@@ -1,3 +1,5 @@
-window.addEventListener("keydown", (event) => {
-  console.log(event);
-});
+window.addEventListener("keydown", handleKey);
+
+function handleKey(e) {
+	console.log(e.code);
+};
