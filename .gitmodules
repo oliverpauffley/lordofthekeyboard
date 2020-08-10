@@ -1,0 +1,6 @@
+[submodule "lordofthekeyboardBackEnd"]
+	path = lordofthekeyboardBackEnd
+	url = https://github.com/oliverpauffley/lordofthekeyboardBackEnd
+[submodule "lordofthekeyboardFrontEnd"]
+	path = lordofthekeyboardFrontEnd
+	url = https://github.com/oliverpauffley/lordofthekeyboardFrontEnd
